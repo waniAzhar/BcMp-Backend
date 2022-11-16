@@ -1,9 +1,16 @@
 package com.brightChamps.marketPlace.entity;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Product {
@@ -16,6 +23,31 @@ public class Product {
 	private String productCategory;
 	private Double productDiscountedPrice;
 	private Double productActualPrice;
+	private String preview;
+	
+	
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "product_images",
+			joinColumns = {
+					@JoinColumn(name = "product_id")
+	},
+			
+			inverseJoinColumns = {
+					@JoinColumn(name = "image_id")
+			}
+			
+	)
+	private Set<ImageModel> productImages;
+	
+	
+	
+	
+	public Set<ImageModel> getProductImages() {
+		return productImages;
+	}
+	public void setProductImages(Set<ImageModel> productImages) {
+		this.productImages = productImages;
+	}
 	public Integer getProductId() {
 		return productId;
 	}
@@ -51,6 +83,12 @@ public class Product {
 	}
 	public void setProductActualPrice(Double productActualPrice) {
 		this.productActualPrice = productActualPrice;
+	}
+	public String getPreview() {
+		return preview;
+	}
+	public void setPreview(String preview) {
+		this.preview = preview;
 	}
 	
 	

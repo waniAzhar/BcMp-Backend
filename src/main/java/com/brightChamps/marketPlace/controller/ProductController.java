@@ -65,14 +65,14 @@ public class ProductController {
 	
 		 return imageModels;
 }
-	@PreAuthorize("hasRole('Admin')")
+	
 	@GetMapping({"/getAllProducts"})
 	public List<Product> getAllProducts(){
 		return productService.getAllProducts();
 		
 	}
 	
-	@PreAuthorize("hasRole('Admin')")
+	//@PreAuthorize("hasRole('Admin')")
 	@GetMapping({"/getProductDetailsById/{productId}"})
 	public Product getProductDetailsById(@PathVariable("productId") Integer productId) {
 		return productService.getProductDetailsById(productId);

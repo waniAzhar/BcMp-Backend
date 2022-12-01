@@ -3,6 +3,7 @@ package com.brightChamps.marketPlace.entity;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -24,6 +25,11 @@ public class Product {
 	private Double productDiscountedPrice;
 	private Double productActualPrice;
 	private String preview;
+	@Column(length = 5000)
+	private String longDescription;
+	private String videoPreview;
+	@Column(length = 5000)
+	private String additionalLinks;
 	
 	
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -89,6 +95,24 @@ public class Product {
 	}
 	public void setPreview(String preview) {
 		this.preview = preview;
+	}
+	public String getLongDescription() {
+		return longDescription;
+	}
+	public void setLongDescription(String longDescription) {
+		this.longDescription = longDescription;
+	}
+	public String getVideoPreview() {
+		return videoPreview;
+	}
+	public void setVideoPreview(String videoPreview) {
+		this.videoPreview = videoPreview;
+	}
+	public String getAdditionalLinks() {
+		return additionalLinks;
+	}
+	public void setAdditionalLinks(String additionalLinks) {
+		this.additionalLinks = additionalLinks;
 	}
 	
 	

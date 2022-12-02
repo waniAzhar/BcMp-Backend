@@ -12,6 +12,8 @@ import com.brightChamps.marketPlace.entity.User;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.management.RuntimeErrorException;
+
 @Service
 public class UserService {
 
@@ -58,13 +60,17 @@ public class UserService {
     }
 
     public User registerNewUser(User user) {
-        Role role = roleDao.findById("User").get();
-        Set<Role> userRoles = new HashSet<>();
-        userRoles.add(role);
-        user.setRole(userRoles);
-        user.setUserPassword(getEncodedPassword(user.getUserPassword()));
-
-        return userDao.save(user);
+    	 User storedDetails = userDao.findByUserName(user.getUserName());
+    	 
+    	 if(storedDetails != null) throw new RuntimeException("User Already Exists");
+    	 
+    		Role role = roleDao.findById("User").get();
+            Set<Role> userRoles = new HashSet<>();
+            userRoles.add(role);
+            user.setRole(userRoles);
+            user.setUserPassword(getEncodedPassword(user.getUserPassword()));
+            
+    	return userDao.save(user);
     }
 
     public String getEncodedPassword(String password) {
